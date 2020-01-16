@@ -1,0 +1,57 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-28
+    environment:
+      JVM_OPTS: -Xmx3200m
+      FL_OUTPUT_DIR: output
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-1-gems-{{ checksum "Gemfile.lock" }}
+      - run:
+         name: Run below command if there are any permissions issues for fetching Gradlew Dependencies
+         command: sudo chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+            - vendor/bundle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-1-gems-{{ checksum "Gemfile.lock" }}
+
+      # Run the fastlane android test to prepare apk, upload files to perfecto media repository & run tests!
+      - run: 
+          command: gem install bundler
+      - run: 
+          command: bundle install
+      - run: 
+          command: bundle update fastlane
+      - run:
+          name: run tests
+          command: bundle exec fastlane android test
+
+      # collect reports
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results
+          destination: test-results
+workflows: 
+  version: 2
+  commit:
+    jobs:
+      - build
+  nightly:
+    triggers:
+      - schedule:
+          cron: "1 0 * * *"
+          filters:
+            branches:
+              only:
+                - master      
+    jobs:
+      - build

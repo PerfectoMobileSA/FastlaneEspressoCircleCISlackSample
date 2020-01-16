@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001024">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: Switch to android apk lane" time="0.000775">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: clean assembleDebug" time="10.771455">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: perfecto" time="5.067949">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: Switch to android test_apk lane" time="0.001402">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: assembleAndroidTest" time="3.199988">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: perfecto" time="2.960943">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: Switch to android run_perfecto lane" time="0.000964">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="8: perfecto-android-inst -PconfigFileLocation=configFile.json -PcloudURL=${PERFECTO_CLOUDURL} -PsecurityToken=${PERFECTO_TOKEN} -PapkPath=${PERFECTO_MEDIA_APK_PATH} -PtestApkPath=${PERFECTO_MEDIA_TESTAPK_PATH}" time="128.433896">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="9: Switch to android slack_report lane" time="0.000933">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

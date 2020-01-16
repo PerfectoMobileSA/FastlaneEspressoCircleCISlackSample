@@ -1,0 +1,78 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+platform :android do
+  ENV['PERFECTO_MEDIA_APK_PATH'] = nil
+  ENV['PERFECTO_MEDIA_TESTAPK_PATH'] = nil
+
+  desc 'build, upload and run on perfecto'
+  lane :test do
+    apk
+    test_apk
+    run_perfecto
+    slack_report
+  end
+
+  desc 'Build debug APK and upload to perfecto'
+  lane :apk do
+    gradle(task: 'clean assembleDebug')
+    perfecto(
+      perfecto_cloudurl: ENV['PERFECTO_CLOUDURL'],
+      perfecto_token: ENV['PERFECTO_TOKEN'],
+      perfecto_media_location: 'PUBLIC:Samples/sample.apk',
+      file_path: ENV['GRADLE_APK_OUTPUT_PATH']
+    )
+    ENV['PERFECTO_MEDIA_APK_PATH'] = 'repository://' + ENV['PERFECTO_MEDIA_FULLPATH']
+  end
+
+  desc 'Build debug test APK and upload to perfecto'
+  lane :test_apk do
+    gradle(task: 'assembleAndroidTest')
+    perfecto(
+      perfecto_cloudurl: ENV['PERFECTO_CLOUDURL'],
+      perfecto_token: ENV['PERFECTO_TOKEN'],
+      perfecto_media_location: 'PUBLIC:Samples/sampleTest.apk',
+      file_path: ENV['GRADLE_APK_OUTPUT_PATH']
+    )
+    ENV['PERFECTO_MEDIA_TESTAPK_PATH'] = 'repository://' + ENV['PERFECTO_MEDIA_FULLPATH']
+  end
+
+  desc 'Run on perfecto'
+  lane :run_perfecto do
+    if ENV['CIRCLE_BUILD_NUM'].nil?
+      gradle(task: 'perfecto-android-inst -PconfigFileLocation=configFile.json -PcloudURL=${PERFECTO_CLOUDURL} -PsecurityToken=${PERFECTO_TOKEN} -PapkPath=${PERFECTO_MEDIA_APK_PATH} -PtestApkPath=${PERFECTO_MEDIA_TESTAPK_PATH}')
+    else
+      gradle(task: "perfecto-android-inst -PconfigFileLocation=configFile.json -PcloudURL=${PERFECTO_CLOUDURL} -PsecurityToken=${PERFECTO_TOKEN} -PapkPath=${PERFECTO_MEDIA_APK_PATH} -PtestApkPath=${PERFECTO_MEDIA_TESTAPK_PATH} -PjobName=#{ENV['CIRCLE_PROJECT_REPONAME']} -PjobNumber=#{ENV['CIRCLE_BUILD_NUM']}")
+    end
+  end
+
+  desc 'Report perfecto url to slack'
+  lane :slack_report do
+    if ENV['CIRCLE_BUILD_NUM'].nil?
+      puts('No slack message sent as this is a local execution!')
+    else
+      slack(
+        message: "Perfecto Suite Report- https://" + ENV['PERFECTO_CLOUDURL'].split(".").first + ".reporting.perfectomobile.com/library?jobName[0]=#{ENV['CIRCLE_PROJECT_REPONAME']}&jobNumber[0]=#{ENV['CIRCLE_BUILD_NUM']}",
+        success: true,
+        slack_url: ENV['slack_webhook'],
+        payload: {
+          'Build Date' => Time.new.to_s,
+          'Built by' => 'fastlane'
+        }
+      )
+    end
+  end
+end
