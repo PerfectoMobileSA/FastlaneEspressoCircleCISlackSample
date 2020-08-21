@@ -5,52 +5,52 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001024">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.001353">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: Switch to android apk lane" time="0.000775">
+      <testcase classname="fastlane.lanes" name="1: Switch to android apk lane" time="0.000819">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: clean assembleDebug" time="10.771455">
+      <testcase classname="fastlane.lanes" name="2: clean assembleDebug" time="4.682455">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: perfecto" time="5.067949">
+      <testcase classname="fastlane.lanes" name="3: perfecto" time="3.98818">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: Switch to android test_apk lane" time="0.001402">
+      <testcase classname="fastlane.lanes" name="4: Switch to android test_apk lane" time="0.000947">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: assembleAndroidTest" time="3.199988">
+      <testcase classname="fastlane.lanes" name="5: assembleAndroidTest" time="6.009248">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: perfecto" time="2.960943">
+      <testcase classname="fastlane.lanes" name="6: perfecto" time="3.562985">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: Switch to android run_perfecto lane" time="0.000964">
+      <testcase classname="fastlane.lanes" name="7: Switch to android run_perfecto lane" time="0.000904">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: perfecto-android-inst -PconfigFileLocation=configFile.json -PcloudURL=${PERFECTO_CLOUDURL} -PsecurityToken=${PERFECTO_TOKEN} -PapkPath=${PERFECTO_MEDIA_APK_PATH} -PtestApkPath=${PERFECTO_MEDIA_TESTAPK_PATH}" time="128.433896">
+      <testcase classname="fastlane.lanes" name="8: perfecto-android-inst -PconfigFileLocation=configFile.json -PcloudURL=${PERFECTO_CLOUDURL} -PsecurityToken=${PERFECTO_TOKEN} -PapkPath=${PERFECTO_MEDIA_APK_PATH} -PtestApkPath=${PERFECTO_MEDIA_TESTAPK_PATH}" time="177.591986">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="9: Switch to android slack_report lane" time="0.000933">
+      <testcase classname="fastlane.lanes" name="9: Switch to android slack_report lane" time="0.002936">
         
       </testcase>
     
