@@ -4,11 +4,9 @@
   "devices": [
 	  {
         "platformName": "Android",
-        "model": "Galaxy.*"
       },
       {
 			"platformName": "Android",
-            "model": "Galaxy.*"
 	  }
   ],
   "jobName": "some_job",
