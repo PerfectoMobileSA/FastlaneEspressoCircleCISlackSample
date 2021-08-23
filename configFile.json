@@ -3,10 +3,12 @@
   "securityToken": "<<SECURITY TOKEN>>",
   "devices": [
 	{
-        	"platformName": "Android"
+        	"platformName": "Android",
+		"model" : "Galaxy S.*" 
         },
         {
-		"platformName": "Android"
+		"platformName": "Android",
+		"model" : "Galaxy S.*"
         }
   ],
   "jobName": "some_job",
