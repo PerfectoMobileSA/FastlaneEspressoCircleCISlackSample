@@ -33,7 +33,8 @@ platform :android do
       perfecto_cloudurl: ENV['PERFECTO_CLOUDURL'],
       perfecto_token: ENV['PERFECTO_TOKEN'],
       perfecto_media_location: 'PUBLIC:Samples/sample.apk',
-      file_path: ENV['GRADLE_APK_OUTPUT_PATH']
+      file_path: ENV['GRADLE_APK_OUTPUT_PATH'],
+      artifactType: 'ANDROID'
     )
     ENV['PERFECTO_MEDIA_APK_PATH'] = 'repository://' + ENV['PERFECTO_MEDIA_FULLPATH']
   end
@@ -45,7 +46,8 @@ platform :android do
       perfecto_cloudurl: ENV['PERFECTO_CLOUDURL'],
       perfecto_token: ENV['PERFECTO_TOKEN'],
       perfecto_media_location: 'PUBLIC:Samples/sampleTest.apk',
-      file_path: ENV['GRADLE_APK_OUTPUT_PATH']
+      file_path: ENV['GRADLE_APK_OUTPUT_PATH'],
+      artifactType: 'ANDROID'
     )
     ENV['PERFECTO_MEDIA_TESTAPK_PATH'] = 'repository://' + ENV['PERFECTO_MEDIA_FULLPATH']
   end
